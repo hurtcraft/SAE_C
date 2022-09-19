@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/5123980/c-how-to-store-2d-char-array-in-a-struct #tableau 2d dans structures
