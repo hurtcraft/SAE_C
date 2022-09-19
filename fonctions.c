@@ -1,14 +1,15 @@
 #include "fonctions.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-void analyse_saisie(char command[]){
-    if (command =="exit"){
-        exit_prog;
+#include <string.h>
+void analyse_saisie(Commande *ma_commande){
+    if (strcmp(ma_commande->nom_commande,"abc")==0){
+        printf("sa marc");
     }
-    else if (command=="formation"){
-
+    else{
+        printf("azert");
     }
+
 }
 void exit_prog(){
     printf("programme terminé :)\n");
