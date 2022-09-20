@@ -7,7 +7,7 @@ typedef enum BOOL {
 typedef struct Commande
 {
     char nom_commande[30];
-    char args[6][30];
+    char args[10][30];
     
 }Commande;
 

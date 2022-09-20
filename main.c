@@ -2,19 +2,16 @@
 #include "fonctions.h"
 #include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 int main(){
+    setlocale(LC_ALL,"UTF8");
     BOOL nb_ue_is_def=False;
     BOOL running=True;
     Commande ma_commande;
-
-    while (running)
-    {
-        printf(">>>");
-        scanf("%s %s %s %s",ma_commande.nom_commande,ma_commande.args[0],)
-        
-    }
-    printf("%d",running);
-    
+    char str[20];
+    printf("saisir : ");
+    scanf("%[^\n]",str);
+    printf("%s",str);
     
     
     
