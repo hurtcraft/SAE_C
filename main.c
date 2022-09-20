@@ -3,10 +3,18 @@
 #include <string.h>
 #include <stdlib.h>
 int main(){
-    Commande c;
-    strcpy(c.nom_commande,"abc");
+    BOOL nb_ue_is_def=False;
+    BOOL running=True;
+    Commande ma_commande;
+
+    while (running)
+    {
+        printf(">>>");
+        scanf("%s %s %s %s",ma_commande.nom_commande,ma_commande.args[0],)
+        
+    }
+    printf("%d",running);
     
-    analyse_saisie(&c);
     
     
     
