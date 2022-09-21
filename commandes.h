@@ -16,6 +16,8 @@ typedef struct Commande
 }Commande;
 
 typedef struct Commande_Formation{
+    BOOL nb_UE_is_def;
+
     unsigned int nb_UE;
 
 }Commande_Formation;
@@ -36,11 +38,8 @@ typedef struct Commande_Coeff{
 Commande get_saisie();
 void analyse_commande(Commande *ma_commande);
 void exit_prog();
-BOOL formation(Commande_Formation *ma_commande_formation);
-
-
-
-
+Commande_Formation create_formation(Commande *ma_commande);
+BOOL nb_UE_is_valid(Commande_Formation commandeF);
 
 
 

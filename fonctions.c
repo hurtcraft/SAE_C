@@ -2,7 +2,7 @@
 #include "fonctions.h"
 
 void clear_str(char str[],int len){
-    for (size_t i = 0; i < len; i++){
+    for (size_t i = 0; i < len+1; i++){
         str[i]=0;
     }
 }

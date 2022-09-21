@@ -6,17 +6,23 @@
 #include "fonctions.h"
 int main(){
     setlocale(LC_ALL,"UTF8");
-    BOOL nb_ue_is_def=False;
     BOOL running=True;
 
-    Commande C = get_saisie();
+    Commande ma_commande;
+    Commande_Formation commande_F;
+
+    
+    do
+    {
+        ma_commande = get_saisie();
+        commande_F=create_formation(&ma_commande);
+    } while (strcmp(ma_commande.nom_commande,"formation")!=0 && nb_UE_is_valid(commande_F));
+    
 
     
     
     
 
-    
-    
     return 0;
 
 }

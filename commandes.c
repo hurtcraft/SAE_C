@@ -7,7 +7,7 @@
 Commande get_saisie(){
     Commande ma_commande;
     char buffer[256];
-    char temp[30];
+    char temp[30]={0};
     
     ma_commande.nb_args=0;
 
@@ -17,19 +17,19 @@ Commande get_saisie(){
     unsigned int i =0;
     unsigned int count=0;
     unsigned int num_args=0;
-    clear_str(temp,strlen(temp));
+    
     while (buffer[i]!='\0')
     {
 
         if (buffer[i]==' '){
-            if(num_args==0){
-                /*l'argument de l'indice 0 est toujours le nom de la commande 
-                ex: formation 2 --> ici l'agument d'indice 0 est "formation"
-                et l'argument d'indice 1 est "2"
-                */
+            
+            if (ma_commande.nb_args==0){
                 strcpy(ma_commande.nom_commande,temp);
             }
-            num_args++;
+            else{
+                strcpy(ma_commande.args[ma_commande.nb_args-1],temp);
+            }
+            
             ma_commande.nb_args++;
             count=0;
             clear_str(temp,strlen(temp));
@@ -38,11 +38,9 @@ Commande get_saisie(){
             temp[count]=buffer[i];
             ++count;
         }
-        
         ++i;
     }
-
-    printf("%s",ma_commande.nom_commande);
+    strcpy(ma_commande.args[ma_commande.nb_args-1],temp);
     
     return ma_commande;
     
@@ -53,22 +51,33 @@ void analyse_commande(Commande *ma_commande){
         exit_prog();
     }
     else if(strcmp(ma_commande->nom_commande,"formation")==0){
-        printf("");
+        Commande_Formation commandeF;
+
     }
-    //scanf("%[^\n]",str);
+
 }
 void exit_prog(){
     printf("programme terminé :)\n");
     exit(EXIT_SUCCESS);
 }
-BOOL formation(Commande_Formation *ma_commande_formation){
-    if(ma_commande_formation->nb_UE>=3 && ma_commande_formation->nb_UE<=6 ){
-        printf("Le nombre d'UE est deja definie");
+BOOL nb_UE_is_valid(Commande_Formation commandeF){
+    if(commandeF.nb_UE>=3 && commandeF.nb_UE<=6){
         return True;
+    }
+    return False;
+}
+Commande_Formation create_formation(Commande *ma_commande){
+    Commande_Formation commande_F;
+    commande_F.nb_UE=atoi(ma_commande->args[0]);
+    printf("%d\n",commande_F.nb_UE);
+    if(commande_F.nb_UE>=3 && commande_F.nb_UE<=6 ){
+        printf("Le nombre d'UE est deja definie");
+        commande_F.nb_UE_is_def=True;
+        
     }
     else{
         printf("Le nombre d'UE est incorrect");
-        return False;
+        commande_F.nb_UE_is_def=False;
     }
-
+    return commande_F;
 }
