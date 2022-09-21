@@ -18,7 +18,6 @@ typedef struct Commande
 
 typedef struct Commande_Formation{
     BOOL nb_UE_is_def;
-
     unsigned int nb_UE;
 
 }Commande_Formation;

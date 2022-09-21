@@ -4,20 +4,27 @@
 #include <string.h>
 #include "commandes.h"
 #include "fonctions.h"
-Commande get_saisie(){
+
+Commande get_commande(){
     Commande ma_commande;
     char buffer[256];
     char temp[30]={0};
     
     ma_commande.nb_args=0;
-    ma_commande.nom_commande[0]=-1;
+    ma_commande.nom_commande[0]=-1;//par defaut 
 
     printf("saisir commande : ");
-    scanf("%[^\n]",buffer);
+    scanf(" %[^\n]",buffer);
+
+    if (strcmp(buffer,"exit")==0)
+    {
+        exit_prog();
+    }
+    
 
     unsigned int i =0;
     unsigned int count=0;
-    unsigned int num_args=0;
+
     
     while (buffer[i]!='\0')
     {
@@ -41,12 +48,13 @@ Commande get_saisie(){
         }
         ++i;
     }
-    strcpy(ma_commande.args[ma_commande.nb_args-1],temp);
+    strcpy(ma_commande.args[ma_commande.nb_args-1],temp);//pour ajouté le dernier args qui n'est pas pris en compte par la boucle
     
     return ma_commande;
     
 
 }
+
 void analyse_commande(Commande *ma_commande){
     if (strcmp(ma_commande->nom_commande,"exit")==0){
         exit_prog();
@@ -61,12 +69,26 @@ void exit_prog(){
     printf("programme terminé :)\n");
     exit(EXIT_SUCCESS);
 }
-BOOL nb_UE_is_valid(Commande_Formation commandeF){
-    if(commandeF.nb_UE>=3 && commandeF.nb_UE<=6){
+BOOL formation_is_init(Commande_Formation *commandeF){
+    if (commandeF->nb_UE_is_def==True)
+    {
+        printf("Le nombre d'UE est deja definie");
+        return False;
+    }
+    
+    if(commandeF->nb_UE>=3 && commandeF->nb_UE<=6 && commandeF->nb_UE_is_def==False){
+        printf("Le nombre d'UE est defini\n");
+        commandeF->nb_UE_is_def=True;
         return True;
+    }
+    else if(!(commandeF->nb_UE>=3 && commandeF->nb_UE<=6)){
+        printf("le nombre d'UE est incorrect\n");
+        return False;
     }
     return False;
 }
+
+
 Commande_Formation create_formation(Commande *ma_commande){
     Commande_Formation commande_F;
     commande_F.nb_UE=atoi(ma_commande->args[0]);
