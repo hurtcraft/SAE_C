@@ -10,6 +10,7 @@ Commande get_saisie(){
     char temp[30]={0};
     
     ma_commande.nb_args=0;
+    ma_commande.nom_commande[0]=-1;
 
     printf("saisir commande : ");
     scanf("%[^\n]",buffer);
