@@ -8,7 +8,7 @@ void clear_str(char str[],int len){
 }
 BOOL commande_is_valid(Commande ma_commande){
     if (ma_commande.nom_commande[0]==-1){
-        printf("Commande non reconnue ou manque d'argument ");
+        printf("Commande non reconnue ou manque d'argument \n");
         return False;
     }   
     return True;

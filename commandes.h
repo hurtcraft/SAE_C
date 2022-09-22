@@ -6,9 +6,8 @@
 Commande get_commande();
 void analyse_commande(Commande *ma_commande);
 void exit_prog();
-Commande_Formation create_formation(Commande *ma_commande);
-
-BOOL formation_is_init(Commande_Formation *commandeF);
+BOOL create_formation(Commande ma_commande,Commande_Formation *commande_F);
+BOOL formation_is_valid(Commande_Formation *commandeF);
 
 
 

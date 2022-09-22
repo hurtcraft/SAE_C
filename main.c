@@ -14,26 +14,20 @@ int main(){
     Commande_Formation commande_F;
     commande_F.nb_UE_is_def=False;
 
-    printf("hellow world");
     
     while (running==True)
     {
 
         ma_commande=get_commande();
-        printf("%s\n",ma_commande.nom_commande);
-        commande_is_valid(ma_commande);
-        analyse_commande(&ma_commande);
         
-        
+        if(create_formation(ma_commande,&commande_F)){
+            
+            printf("il ya : %d UE\n",commande_F.nb_UE);
+        }
+        else{
+            printf("marche pas\n");
+        }        
     }
-    
-    
-    
-    
-
-  
-
-    
 
     return 0;
 

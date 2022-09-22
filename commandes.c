@@ -11,21 +11,23 @@ Commande get_commande(){
     char temp[30]={0};
     
     ma_commande.nb_args=0;
-    ma_commande.nom_commande[0]=-1;//par defaut 
+    
 
     printf("saisir commande : ");
     scanf(" %[^\n]",buffer);
 
     if (strcmp(buffer,"exit")==0)
     {
+        /* si l'utilisateur ecrit "exit"--> sortie programme 
+        pas besoin d'executé le reste*/
         exit_prog();
     }
     
 
     unsigned int i =0;
     unsigned int count=0;
-
-    
+    strcat(buffer," ");//l'ajout d'un espace est necessaire
+                       //-->voir fonctionnement de la boucle 
     while (buffer[i]!='\0')
     {
 
@@ -33,6 +35,7 @@ Commande get_commande(){
             
             if (ma_commande.nb_args==0){
                 strcpy(ma_commande.nom_commande,temp);
+                
             }
             else{
                 strcpy(ma_commande.args[ma_commande.nb_args-1],temp);
@@ -41,6 +44,7 @@ Commande get_commande(){
             ma_commande.nb_args++;
             count=0;
             clear_str(temp,strlen(temp));
+            
         }
         else{
             temp[count]=buffer[i];
@@ -48,18 +52,16 @@ Commande get_commande(){
         }
         ++i;
     }
-    strcpy(ma_commande.args[ma_commande.nb_args-1],temp);//pour ajouté le dernier args qui n'est pas pris en compte par la boucle
-    
+    strcpy(ma_commande.args[ma_commande.nb_args-1],temp);
+    //pour ajouté le dernier args qui n'est pas pris en compte par la boucle
+    --ma_commande.nb_args;
     return ma_commande;
-    
 
 }
 
 void analyse_commande(Commande *ma_commande){
-    if (strcmp(ma_commande->nom_commande,"exit")==0){
-        exit_prog();
-    }
-    else if(strcmp(ma_commande->nom_commande,"formation")==0){
+
+    if(strcmp(ma_commande->nom_commande,"formation")==0){
         Commande_Formation commandeF;
 
     }
@@ -69,10 +71,10 @@ void exit_prog(){
     printf("programme terminé :)\n");
     exit(EXIT_SUCCESS);
 }
-BOOL formation_is_init(Commande_Formation *commandeF){
+BOOL formation_is_valid(Commande_Formation *commandeF){
     if (commandeF->nb_UE_is_def==True)
     {
-        printf("Le nombre d'UE est deja definie");
+        printf("Le nombre d'UE est deja definie\n");
         return False;
     }
     
@@ -89,18 +91,43 @@ BOOL formation_is_init(Commande_Formation *commandeF){
 }
 
 
-Commande_Formation create_formation(Commande *ma_commande){
-    Commande_Formation commande_F;
-    commande_F.nb_UE=atoi(ma_commande->args[0]);
-    printf("%d\n",commande_F.nb_UE);
-    if(commande_F.nb_UE>=3 && commande_F.nb_UE<=6 ){
-        printf("Le nombre d'UE est deja definie");
-        commande_F.nb_UE_is_def=True;
+BOOL create_formation(Commande ma_commande,Commande_Formation *commande_F){
+    /* return True si la formation à pu se créer
+    */
+    if (ma_commande.nb_args!=1)
+    {
+        printf("trop ou pas assez de d'argument pour la commande <formation>\n ex: <formation> <nb_UE:INT>\n");
+        return False;
+    }
+    int nb_UE;
+    if (*ma_commande.args[0]>=48 && *ma_commande.args[0]<=57)
+    {
+        nb_UE=atoi(ma_commande.args[0]);
+    }
+    else{
+        printf("saisie incorrect <formation> <nb_UE:INT>\n");
+        return False;
+    }
+    
+    
+    
+
+    if (commande_F->nb_UE_is_def==True){
+        printf("Le nombre d'UE est deja definie\n");
+        return False;
+    }
+    
+    else if(nb_UE>=3 && nb_UE<=6){
+        printf("Le nombre d'UE est definie\n");
+        commande_F->nb_UE_is_def=True;
+        commande_F->nb_UE=nb_UE;
+        return True;
         
     }
     else{
-        printf("Le nombre d'UE est incorrect");
-        commande_F.nb_UE_is_def=False;
+        printf("Le nombre d'UE est incorrect\n");
+        commande_F->nb_UE_is_def=False;
+        return False;
     }
-    return commande_F;
+
 }
