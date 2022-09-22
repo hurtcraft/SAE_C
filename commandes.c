@@ -101,6 +101,8 @@ BOOL create_formation(Commande ma_commande,Commande_Formation *commande_F){
     }
     int nb_UE;
     if (*ma_commande.args[0]>=48 && *ma_commande.args[0]<=57)
+    //ma_commande.args doit etre compris entre 0 et 9 soit 48 et 57 dans la table ascii
+    
     {
         nb_UE=atoi(ma_commande.args[0]);
     }
