@@ -71,24 +71,7 @@ void exit_prog(){
     printf("programme terminé :)\n");
     exit(EXIT_SUCCESS);
 }
-BOOL formation_is_valid(Commande_Formation *commandeF){
-    if (commandeF->nb_UE_is_def==True)
-    {
-        printf("Le nombre d'UE est deja definie\n");
-        return False;
-    }
-    
-    if(commandeF->nb_UE>=3 && commandeF->nb_UE<=6 && commandeF->nb_UE_is_def==False){
-        printf("Le nombre d'UE est defini\n");
-        commandeF->nb_UE_is_def=True;
-        return True;
-    }
-    else if(!(commandeF->nb_UE>=3 && commandeF->nb_UE<=6)){
-        printf("le nombre d'UE est incorrect\n");
-        return False;
-    }
-    return False;
-}
+
 
 
 BOOL create_formation(Commande ma_commande,Commande_Formation *commande_F){
