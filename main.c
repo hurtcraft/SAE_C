@@ -9,8 +9,11 @@ int main(){
     setlocale(LC_ALL,"");
     Commande ma_commande;
     Commande_Formation commande_F;
+    BOOL a=False;
+    printf("%d",a);
 
-    init_formation(ma_commande,&commande_F);
+    
+    //init_formation(ma_commande,&commande_F);
 
     
 

@@ -35,4 +35,10 @@ typedef struct Commande_Coeff{
 
 }Commande_Coeff;
 
+typedef struct etudiant
+{
+    char nom[30];
+    
+}etudiant;
+
 #endif

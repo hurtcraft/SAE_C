@@ -59,11 +59,11 @@ Commande get_commande(){
 
 }
 
-void analyse_commande(Commande *ma_commande){
+void analyse_commande(Commande ma_commande){
 
-    if(strcmp(ma_commande->nom_commande,"formation")==0){
+    if(strcmp(ma_commande.nom_commande,"formation")==0){
         Commande_Formation commandeF;
-
+    
     }
 
 }
@@ -142,4 +142,5 @@ void init_formation(Commande ma_commande,Commande_Formation *commande_F){
     }
 
 }
+
 
