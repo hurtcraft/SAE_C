@@ -24,7 +24,7 @@ typedef struct Commande_Formation{
 
 typedef struct Commande_Epreuve{
     unsigned int num_semestre;
-    char nom_matier[30];
+    char nom_matiere[30];
     char nom_epreuve[30];
     unsigned int tab_coeff_UE[6];
 }Commande_Epreuve;
@@ -35,10 +35,17 @@ typedef struct Commande_Coeff{
 
 }Commande_Coeff;
 
-typedef struct etudiant
+typedef struct Etudiant
 {
     char nom[30];
     
 }etudiant;
+
+typedef struct Matiere
+{
+    char nom[30];
+    int nb_epreuve;
+    Commande_Epreuve liste_epr[5];
+}Matiere;
 
 #endif

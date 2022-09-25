@@ -4,7 +4,8 @@
 #include <string.h>
 #include "commandes.h"
 #include "fonctions.h"
-
+#define nb_args_min_epr 3 //on définie ici le nombre minimum d'argument que prend la commande épreuve
+                          //soit 3 (num_semestre nom_matiere nom épreuve)
 Commande get_commande(){
     Commande ma_commande;
     char buffer[256];
@@ -23,7 +24,9 @@ Commande get_commande(){
         exit_prog();
     }
     
-
+    if(buffer[strlen(buffer)+1]==' '){
+        buffer[strlen(buffer)]='\0';
+    }
     unsigned int i =0;
     unsigned int count=0;
     strcat(buffer," ");//l'ajout d'un espace est necessaire
@@ -61,8 +64,9 @@ Commande get_commande(){
 
 void analyse_commande(Commande ma_commande){
 
-    if(strcmp(ma_commande.nom_commande,"formation")==0){
-        Commande_Formation commandeF;
+    if(strcmp(ma_commande.nom_commande,"epreuve")==0 ){
+
+        printf("sqds");
     
     }
 
@@ -93,9 +97,6 @@ BOOL create_formation(Commande ma_commande,Commande_Formation *commande_F){
         printf("saisie incorrect <formation> <nb_UE:INT>\n");
         return False;
     }
-    
-    
-    
 
     if (commande_F->nb_UE_is_def==True){
         printf("Le nombre d'UE est deja definie\n");
@@ -143,4 +144,67 @@ void init_formation(Commande ma_commande,Commande_Formation *commande_F){
 
 }
 
+BOOL create_epreuve(Commande ma_commande , Commande_Epreuve *commande_E, int nb_UE,Matiere liste_mat[],int *nb_matiere){
+    int nb_coeff_equal_zero=0;
+    int mon_coeff;
+    
 
+    if(ma_commande.nb_args!=nb_args_min_epr+nb_UE){
+        printf("Trop ou pas assez d'argument : \n ex : <epreuve> <num_semestre> <nom_matiere> <nom_epreuve><1_coeff_par_UE>il y'a %d UE\n",nb_UE);
+        return False;
+    }
+    commande_E->num_semestre=atoi(ma_commande.args[0]);   
+    strcpy(commande_E->nom_matiere,ma_commande.args[1]);
+    strcpy(commande_E->nom_epreuve,ma_commande.args[2]); 
+
+    for (size_t i = 0; i < nb_UE; i++)
+    {
+        mon_coeff=atoi(ma_commande.args[i+3]);
+        if(mon_coeff==0){
+            nb_coeff_equal_zero++;
+        }
+        else if (mon_coeff<0){
+            printf("Au moins un des coefficients est incorrect\n");
+            return False;
+        }
+        commande_E->tab_coeff_UE[i]=mon_coeff;
+    }
+
+    if(nb_coeff_equal_zero==nb_UE){
+        printf("Au moins un des coefficients doit etre positif\n");
+        return False;
+    }
+    else if (atoi(ma_commande.args[0])>2 || atoi(ma_commande.args[0])<1 ){
+        printf("Le numero de semestre saisie est incorrect\n");
+        return False;
+    }
+
+
+
+    if (get_matiere_indice(*commande_E,liste_mat,*nb_matiere)==-1){
+        // creation matiere
+        
+        Matiere ma_matiere;
+        ma_matiere.nb_epreuve=0;
+        strcpy(ma_matiere.nom,commande_E->nom_matiere);
+        ma_matiere.liste_epr[ma_matiere.nb_epreuve]=*commande_E;
+        ++ma_matiere.nb_epreuve;
+        liste_mat[*nb_matiere]=ma_matiere;
+        *nb_matiere+=1;
+    }
+    else if (epreuve_already_exist(*commande_E,liste_mat,*nb_matiere)==True){
+        printf("Une meme epreuve existe deja\n");
+        return False;
+
+    }
+    
+    
+    
+
+    return True;
+    
+
+    
+   
+}
+   
