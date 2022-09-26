@@ -23,10 +23,11 @@ int main(){
 
     //int nb_UE=commande_F.nb_UE;
     int nb_UE=4;
-    verif_coeff(ma_commande,liste_mat);
-   
-    
+    create_epreuve(ma_commande,&commande_E,nb_UE,liste_mat,&nb_matiere);
+    ma_commande=get_commande();
+    create_epreuve(ma_commande,&commande_E,nb_UE,liste_mat,&nb_matiere);
 
+    verif_coeff(ma_commande,liste_mat,nb_matiere,nb_UE);
     //epreuve_already_exist(commande_E,liste_mat,&nb_matiere,&nb_epreuve);
 
 

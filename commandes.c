@@ -210,31 +210,32 @@ BOOL create_epreuve(Commande ma_commande , Commande_Epreuve *commande_E, int nb_
 
 }
    
-BOOL verif_coeff(Commande ma_commande ,Matiere liste_mat[],int nb_matiere){
+BOOL verif_coeff(Commande ma_commande ,Matiere liste_mat[],int nb_matiere, const int nb_UE){
     if (semestre_is_valid(ma_commande)==False)
     {
         return False;
     }
     int num_semestre=atoi(ma_commande.args[0]);
+    int **array_UE=create_2d_array(nb_matiere,nb_UE);
 
+   
     for (size_t i = 0; i < nb_matiere; i++)
     {   //parcours matieres
-        if (liste_mat[])
-        {
-            /* code */
-        }
         
         for (size_t j = 0; j < liste_mat[i].nb_epreuve; j++)
         {   //parcours epreuves
-            if(liste_mat[i].liste_epr[j].num_semestre==num_semestre){
-                
-                
-            }
+            //if(liste_mat[i].liste_epr[j].num_semestre==num_semestre){
+                //printf("%d \n",liste_mat[i].nb_epreuve);
+                for (size_t z = 0; z < nb_UE; z++)
+                {
+                    printf("%d ",liste_mat[i].liste_epr[j].tab_coeff_UE[z]);
+                }
+            //}
         }
         
         
     }
-    
-
+    //print_array(array_UE,nb_matiere,nb_UE);
+    clear_2d_array(array_UE,nb_matiere,nb_UE);
     return True;   
 }

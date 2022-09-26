@@ -55,3 +55,41 @@ BOOL semestre_is_valid(Commande ma_commande){
     }
     return True;
 }
+int **create_2d_array(int row,int col){
+    static int **array=NULL;
+    array=malloc(sizeof(int*)*row);
+    if (array==NULL)
+    {
+        printf("pb alloc ");
+        exit(EXIT_FAILURE);
+    }
+    for (size_t i = 0; i < row; i++)
+    {
+        array[i]=malloc(sizeof(int)*col);
+        if (array[i]==NULL)
+        {
+            printf("pb alloc ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    return array;
+    
+}
+void clear_2d_array(int **array,int row,int col){
+    for (size_t i = 0; i < row; i++)
+    {
+        free(array[i]);
+    }
+    free(array);
+}
+void print_array(int **array, int row , int col){
+    for (size_t i = 0; i < row; i++)
+    {
+        for (size_t j = 0; j < col; j++)
+        {
+            printf("%d ",array[i][j]);
+        }
+        printf("\n");
+    }
+    
+}
