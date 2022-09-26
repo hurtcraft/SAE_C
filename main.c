@@ -13,8 +13,9 @@ int main(){
     Commande ma_commande;
     Commande_Formation commande_F;
     Commande_Epreuve commande_E;
+    Matiere liste_mat[NB_MAT_MAX];
     int nb_matiere=0;
-    int nb_epreuve=2;
+   
     
     ma_commande=get_commande();
 
@@ -22,16 +23,10 @@ int main(){
 
     //int nb_UE=commande_F.nb_UE;
     int nb_UE=4;
-    Matiere liste_mat[NB_MAT_MAX];
-
-
-    create_epreuve(ma_commande,&commande_E,nb_UE,liste_mat,&nb_matiere);
-    printf("%d",*liste_mat[nb_matiere].liste_epr[liste_mat[nb_matiere].nb_epreuve].nom_matiere);
-    ma_commande=get_commande();
-    create_epreuve(ma_commande,&commande_E,nb_UE,liste_mat,&nb_matiere);
+    verif_coeff(ma_commande,liste_mat);
+   
     
-    printf("%d",*liste_mat[nb_matiere].liste_epr[liste_mat[nb_matiere].nb_epreuve].nom_matiere);
-    printf("po");
+
     //epreuve_already_exist(commande_E,liste_mat,&nb_matiere,&nb_epreuve);
 
 

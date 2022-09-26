@@ -23,6 +23,7 @@ Commande get_commande(){
         pas besoin d'executé le reste*/
         exit_prog();
     }
+
     
     if(buffer[strlen(buffer)+1]==' '){
         buffer[strlen(buffer)]='\0';
@@ -89,7 +90,6 @@ BOOL create_formation(Commande ma_commande,Commande_Formation *commande_F){
     int nb_UE;
     if (*ma_commande.args[0]>=48 && *ma_commande.args[0]<=57)
     //ma_commande.args doit etre compris entre 0 et 9 soit 48 et 57 dans la table ascii
-
     {
         nb_UE=atoi(ma_commande.args[0]);
     }
@@ -174,37 +174,67 @@ BOOL create_epreuve(Commande ma_commande , Commande_Epreuve *commande_E, int nb_
         printf("Au moins un des coefficients doit etre positif\n");
         return False;
     }
-    else if (atoi(ma_commande.args[0])>2 || atoi(ma_commande.args[0])<1 ){
-        printf("Le numero de semestre saisie est incorrect\n");
+    if (semestre_is_valid(ma_commande)==False){
         return False;
     }
 
 
-
-    if (get_matiere_indice(*commande_E,liste_mat,*nb_matiere)==-1){
-        // creation matiere
-        
-        Matiere ma_matiere;
-        ma_matiere.nb_epreuve=0;
-        strcpy(ma_matiere.nom,commande_E->nom_matiere);
-        ma_matiere.liste_epr[ma_matiere.nb_epreuve]=*commande_E;
-        ++ma_matiere.nb_epreuve;
-        liste_mat[*nb_matiere]=ma_matiere;
-        *nb_matiere+=1;
-    }
-    else if (epreuve_already_exist(*commande_E,liste_mat,*nb_matiere)==True){
+    int matiere_indice=get_matiere_indice(*commande_E,liste_mat,*nb_matiere);
+    Matiere ma_matiere;
+    if (epreuve_already_exist(*commande_E,liste_mat,*nb_matiere)==True){
         printf("Une meme epreuve existe deja\n");
         return False;
 
     }
-    
-    
-    
+    if (matiere_indice==-1){
+        // creation matiere
+        
+        ma_matiere.nb_epreuve=0;
+        strcpy(ma_matiere.nom,commande_E->nom_matiere);
+        ma_matiere.liste_epr[ma_matiere.nb_epreuve]=*commande_E;
+        ma_matiere.nb_epreuve+=1;
+        liste_mat[*nb_matiere]=ma_matiere;
+        *nb_matiere+=1;
+        printf("Matiere ajoute a la formation\n");
+        return True;
+    }
+    else{
+        ma_matiere.liste_epr[ma_matiere.nb_epreuve]=*commande_E;
+        ma_matiere.nb_epreuve+=1;
+        liste_mat[matiere_indice]=ma_matiere;
+        printf("Epreuve ajouter a la formation\n");
+        return True;
+        
+    }
 
-    return True;
-    
 
-    
-   
 }
    
+BOOL verif_coeff(Commande ma_commande ,Matiere liste_mat[],int nb_matiere){
+    if (semestre_is_valid(ma_commande)==False)
+    {
+        return False;
+    }
+    int num_semestre=atoi(ma_commande.args[0]);
+
+    for (size_t i = 0; i < nb_matiere; i++)
+    {   //parcours matieres
+        if (liste_mat[])
+        {
+            /* code */
+        }
+        
+        for (size_t j = 0; j < liste_mat[i].nb_epreuve; j++)
+        {   //parcours epreuves
+            if(liste_mat[i].liste_epr[j].num_semestre==num_semestre){
+                
+                
+            }
+        }
+        
+        
+    }
+    
+
+    return True;   
+}

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "struct.h"
 #include <string.h>
+#include <stdlib.h>
 void clear_str(char str[],int len){
     for (size_t i = 0; i < len+1; i++){
         str[i]=0;
@@ -27,6 +28,8 @@ int get_matiere_indice(Commande_Epreuve commande_E,Matiere liste_mat[],int nb_ma
     
     return -1;
 }
+
+
 BOOL epreuve_already_exist(Commande_Epreuve commande_E,Matiere liste_mat[],int nb_matiere){
 
     int indice=get_matiere_indice(commande_E,liste_mat,nb_matiere);
@@ -44,4 +47,11 @@ BOOL epreuve_already_exist(Commande_Epreuve commande_E,Matiere liste_mat[],int n
     
     return False;
     
+}
+BOOL semestre_is_valid(Commande ma_commande){
+    if (atoi(ma_commande.args[0])>2 || atoi(ma_commande.args[0])<1 ){
+        printf("Le numero de semestre saisie est incorrect\n");
+        return False;
+    }
+    return True;
 }
